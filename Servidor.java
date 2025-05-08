@@ -38,7 +38,7 @@ class TCPServer {
                 outToClient.writeBytes("Error: entrada no es un número válido\n");
             }
 
-            connectionSocket.close(); // Cerrar conexión con el cliente
+            connectionSocket.close();// Cerrar conexión con el cliente
         }
     }
 }

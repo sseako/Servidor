@@ -8,13 +8,13 @@ class ServidorColonesDolares {
 
         double clientNumber;
         double cambio ;
-   // clientNumber = Double.parseDouble(clientSentence);
+   
         ServerSocket welcomeSocket = new ServerSocket(6789);
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
             BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
             DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-            clientSentence = inFromClient.readLine();
+            String clientSentence = inFromClient.readLine();
             capitalizedSentence = clientSentence.toUpperCase() + '\n';
             outToClient.writeBytes(capitalizedSentence);
         }

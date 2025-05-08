@@ -1,4 +1,5 @@
 public class Cliente {
+
 import java.io.*;  
 import java.net.*;  
 
@@ -8,4 +9,12 @@ import java.net.*;
         String sentence;  
         String modifiedSentence;  
 } 
+
+    public static void main(String[] args) {
+
+        double clientSentence;
+        double capitalizedSentence;
+
+    } // hola
+
 }

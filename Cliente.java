@@ -19,7 +19,10 @@ public class Cliente {
         clientSocket.close();    
 } 
 }
-       
+       // Diego Alfaro alvarado
+       // Fabricio Alvarez Valverde 
+       // Daniel Gatgens Malespin 
+       // Joshua soto 
     
 
 

@@ -4,55 +4,41 @@ import java.io.*;
 import java.net.*;
 
 class TCPServer {
-
     public static void main(String argv[]) throws Exception {
-        String clientSentence;
-        String respuesta;
+        double clientNumber;
+        double result;
 
         ServerSocket welcomeSocket = new ServerSocket(6789);
-
-        System.out.println("Servidor iniciado... Esperando conexiones en el puerto 6789");
 
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
 
             BufferedReader inFromClient = new BufferedReader(
-                new InputStreamReader(connectionSocket.getInputStream()));
+                new InputStreamReader(connectionSocket.getInputStream())
+            );
 
-            DataOutputStream outToClient =
-                new DataOutputStream(connectionSocket.getOutputStream());
+            DataOutputStream outToClient = new DataOutputStream(
+                connectionSocket.getOutputStream()
+            );
 
-            clientSentence = inFromClient.readLine();
-            System.out.println("Mensaje recibido: " + clientSentence);
+            // Leer la línea como String
+            String clientSentence = inFromClient.readLine();
 
-            // Separar entrada: se espera "<moneda> <monto>"
-            String[] partes = clientSentence.split(" ");
-            if (partes.length == 2) {
-                String moneda = partes[0].toUpperCase();
-                double monto;
+            try {
+                // Parsear el String a double
+                clientNumber = Double.parseDouble(clientSentence);
 
-                try {
-                    monto = Double.parseDouble(partes[1]);
+                // Hacer alguna operación (ejemplo: multiplicar por 2)
+                result = clientNumber * 2;
 
-                    if (moneda.equals("CRC")) {
-                        double resultado = monto / 500.0;
-                        respuesta = "Equivalente en USD: $" + resultado + "\n";
-                    } else if (moneda.equals("USD")) {
-                        double resultado = monto * 500.0;
-                        respuesta = "Equivalente en CRC: ₡" + resultado + "\n";
-                    } else {
-                        respuesta = "Moneda no válida. Use 'USD' o 'CRC'.\n";
-                    }
-
-                } catch (NumberFormatException e) {
-                    respuesta = "Formato de monto inválido.\n";
-                }
-
-            } else {
-                respuesta = "Formato incorrecto. Use: <moneda> <monto>\n";
+                // Enviar el resultado al cliente
+                outToClient.writeBytes("Resultado: " + result + "\n");
+            } catch (NumberFormatException e) {
+                // Si no es un número válido, enviar error
+                outToClient.writeBytes("Error: entrada no es un número válido\n");
             }
 
-            outToClient.writeBytes(respuesta);
-        }
-    }
+            connectionSocket.close(); // Cerrar conexión con el cliente
+ }
+}
 }

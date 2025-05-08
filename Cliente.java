@@ -9,7 +9,7 @@ public class Cliente {
         Socket clientSocket = new Socket("hostname", 6789);  
         DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());   
         BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        sentence = inFromUser.readLine();          
+        sentence = Double.parseDouble(inFromUser.readLine());          
         outToServer.writeBytes(sentence + '\n');          
         modifiedSentence = inFromServer.readLine(); 
         System.out.println("FROM SERVER: " + modifiedSentence);           

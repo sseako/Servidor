@@ -4,47 +4,55 @@ import java.io.*;
 import java.net.*;
 
 class TCPServer {
+
     public static void main(String argv[]) throws Exception {
-        double clientNumber;
-        double result;
+        String clientSentence;
+        String respuesta;
 
         ServerSocket welcomeSocket = new ServerSocket(6789);
+
+        System.out.println("Servidor iniciado... Esperando conexiones en el puerto 6789");
 
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();
 
             BufferedReader inFromClient = new BufferedReader(
-                new InputStreamReader(connectionSocket.getInputStream())
-            );
+                new InputStreamReader(connectionSocket.getInputStream()));
 
-            DataOutputStream outToClient = new DataOutputStream(
-                connectionSocket.getOutputStream()
-            );
+            DataOutputStream outToClient =
+                new DataOutputStream(connectionSocket.getOutputStream());
 
-            // Leer la línea como String
-            String clientSentence = inFromClient.readLine();
+            clientSentence = inFromClient.readLine();
+            System.out.println("Mensaje recibido: " + clientSentence);
 
-            try {
-                // Parsear el String a double
-                clientNumber = Double.parseDouble(clientSentence);
+            // Separar entrada: se espera "<moneda> <monto>"
+            String[] partes = clientSentence.split(" ");
+            if (partes.length == 2) {
+                String moneda = partes[0].toUpperCase();
+                double monto;
 
-                // Hacer alguna operación (ejemplo: multiplicar por 2)
-                result = clientNumber * 2;
+                try {
+                    monto = Double.parseDouble(partes[1]);
 
-                // Enviar el resultado al cliente
-                outToClient.writeBytes("Resultado: " + result + "\n");
-            } catch (NumberFormatException e) {
-                // Si no es un número válido, enviar error
-                outToClient.writeBytes("Error: entrada no es un número válido\n");
+                    if (moneda.equals("CRC")) {
+                        double resultado = monto / 500.0;
+                        respuesta = "Equivalente en USD: $" + resultado + "\n";
+                    } else if (moneda.equals("USD")) {
+                        double resultado = monto * 500.0;
+                        respuesta = "Equivalente en CRC: ₡" + resultado + "\n";
+                    } else {
+                        respuesta = "Moneda no válida. Use 'USD' o 'CRC'.\n";
+                    }
+
+                } catch (NumberFormatException e) {
+                    respuesta = "Formato de monto inválido.\n";
+                }
+
+            } else {
+                respuesta = "Formato incorrecto. Use: <moneda> <monto>\n";
             }
 
-<<<<<<< HEAD
-            connectionSocket.close();// Cerrar conexión con el cliente
+            outToClient.writeBytes(respuesta);
         }
     }
-=======
-            connectionSocket.close(); // Cerrar conexión con el cliente
- }
-}
->>>>>>> 79d9d81d1c8758a1b4dc1df4c088e25e3709837a
 }

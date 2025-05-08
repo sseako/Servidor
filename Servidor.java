@@ -1,11 +1,11 @@
 // Servidor
+import java.net.*;
 
+class ServidorColonesDolares{
+    public static void main(String[] args) {
 
-//buenas
-//Abril
+        double clientSentence;
+        double capitalizedSentence;
 
-//Esto te deberia de aparecer Jorge 
-
-// Probando 123
-//Esto te deberia de aparecer Jorge
-//QUien es el mejor jugador de forniqui de libe ? 
+    }
+}

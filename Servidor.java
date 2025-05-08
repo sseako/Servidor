@@ -1,10 +1,4 @@
 // Servidor
-
-
-//buenas
-
-
-//import java.oi.*;
 import java.net.*;
 
 class ServidorColonesDolares{

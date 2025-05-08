@@ -6,9 +6,9 @@ import java.net.*;
 class ServidorColonesDolares {
     public static void main(String argv[]) throws Exception {
 
-        String clientSentence;
-        String capitalizedSentence;
-
+        double clientNumber;
+        double cambio ;
+   // clientNumber = Double.parseDouble(clientSentence);
         ServerSocket welcomeSocket = new ServerSocket(6789);
         while (true) {
             Socket connectionSocket = welcomeSocket.accept();

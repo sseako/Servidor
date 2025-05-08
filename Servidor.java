@@ -4,10 +4,10 @@ import java.io.*;
 import java.net.*;
 
 class ServidorColonesDolares {
-    public static void main(String[] args) {
+    public static void main(String argv[]) throws Exception {
 
-        double clientSentence;
-        double capitalizedSentence;
+        String clientSentence;
+        String capitalizedSentence;
 
         ServerSocket welcomeSocket = new ServerSocket(6789);
         while (true) {
